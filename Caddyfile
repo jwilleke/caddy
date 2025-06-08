@@ -18,7 +18,7 @@
 
     @trueNAS host truenas.nerdsbythehour.com
     handle @trueNAS {
-        reverse_proxy 192.168.68.24 {
+        reverse_proxy https://192.168.68.24 {
             transport http {
                 tls
                 tls_insecure_skip_verify
@@ -28,12 +28,7 @@
 
     @tesla host tesla.nerdsbythehour.com
     handle @tesla {
-        reverse_proxy http://192.168.68.71:3000 {
-            transport http {
-                tls
-                tls_insecure_skip_verify
-            }
-        }
+        reverse_proxy http://192.168.68.71:3000
     }
 
     @portainer host caddy-portainer.nerdsbythehour.com
@@ -48,11 +43,6 @@
 
     @homeassistant host ha.nerdsbythehour.com
     handle @homeassistant {
-        reverse_proxy ha.nerdsbythehour.com:8123 {
-            transport http {
-                tls
-                tls_insecure_skip_verify
-            }
-        }
+        reverse_proxy http://homeassistant:8123
     }
 }
