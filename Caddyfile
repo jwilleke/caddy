@@ -50,4 +50,8 @@
                         tls_insecure_skip_verify
                 }
         }
+        :80 {
+          root * /usr/share/caddy
+          file_server
+        }
 }
