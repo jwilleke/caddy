@@ -21,3 +21,28 @@ ea16d1a540c6   teslamate_default   bridge    local
 From /mnt/apps/docker/caady
 
 docker-compose up -d
+
+
+
+## Configure the Token:
+
+Token Name: Enter a descriptive name, e.g., caddy-dns-nerdsbythehour.
+
+### Permissions:
+
+- Add: Zone > Zone > Read (to read zone details).
+- Add: Zone > DNS > Edit (to create DNS records for the dns-01 challenge).
+
+### Zone Resources
+
+- Select Include > Specific zone > nerdsbythehour.com. This ensures the token only applies to your domain.
+- Optional Restrictions (recommended for security):
+- Client IP Address Filtering: Restrict to your server’s IP if static.
+- TTL: Set an expiration date (e.g., 1 year) for security.
+- Click Continue to summary
+- Copy key as you will never see it again!
+
+test the key
+``` bash
+curl "https://api.cloudflare.com/client/v4/user/tokens/verify" -H "Authorization: Bearer YourVerySecretToken"
+```
