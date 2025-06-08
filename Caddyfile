@@ -9,7 +9,7 @@
                 resolvers 1.1.1.1
         }
 
-        @caddy host caddy.nerdsbythehour.com
+        @@caddy host caddy.nerdsbythehour.com localhost 127.0.0.1
         handle @caddy {
                 root * /usr/share/caddy
                 php_fastcgi localhost:80
@@ -50,8 +50,5 @@
                         tls_insecure_skip_verify
                 }
         }
-        :80 {
-          root * /usr/share/caddy
-          file_server
-        }
+
 }
