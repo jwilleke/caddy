@@ -1,54 +1,58 @@
 {
-        admin 0.0.0.0:2019
+    admin 0.0.0.0:2019
 }
 
 *.nerdsbythehour.com {
-        tls {
-                dns cloudflare {env.CF_API_TOKEN}
-                propagation_delay 2m
-                resolvers 1.1.1.1
+    tls {
+        dns cloudflare {env.CF_API_TOKEN}
+        propagation_delay 2m
+        resolvers 1.1.1.1
+    }
+
+    @caddy host caddy.nerdsbythehour.com localhost 127.0.0.1
+    handle @caddy {
+        root * /usr/share/caddy
+        php_fastcgi localhost:80
+        file_server
+    }
+
+    @trueNAS host truenas.nerdsbythehour.com
+    handle @trueNAS {
+        reverse_proxy 192.168.68.24 {
+            transport http {
+                tls
+                tls_insecure_skip_verify
+            }
         }
+    }
 
-        @@caddy host caddy.nerdsbythehour.com localhost 127.0.0.1
-        handle @caddy {
-                root * /usr/share/caddy
-                php_fastcgi localhost:80
-                file_server
-       }
-
-        @trueNAS host truenas.nerdsbythehour.com
-        handle @trueNAS {
-                reverse_proxy 192.168.68.24
-                transport http {
-                            tls
-                            tls_insecure_skip_verify
-                    }
-        } 
-
-        @tesla host tesla.nerdsbythehour.com
-        handle @tesla {
-                reverse_proxy http://192.168.68.71:3000 {
-                    transport http {
-                            tls
-                            tls_insecure_skip_verify
-                    }
-        } 
-
-        @portainer host caddy-portainer.nerdsbythehour.com
-        handle @portainer {
-                reverse_proxy https://portainer:9443 {
-                    transport http {
-                            tls
-                            tls_insecure_skip_verify
-                    }
+    @tesla host tesla.nerdsbythehour.com
+    handle @tesla {
+        reverse_proxy http://192.168.68.71:3000 {
+            transport http {
+                tls
+                tls_insecure_skip_verify
+            }
         }
-        @homeassistant host ha.nerdsbythehour.com
-        handle @homeassistant {
-                reverse_proxy ha.nerdsbythehour.com:8123
-                transport http {
-                        tls
-                        tls_insecure_skip_verify
-                }
-        }
+    }
 
+    @portainer host caddy-portainer.nerdsbythehour.com
+    handle @portainer {
+        reverse_proxy https://portainer:9443 {
+            transport http {
+                tls
+                tls_insecure_skip_verify
+            }
+        }
+    }
+
+    @homeassistant host ha.nerdsbythehour.com
+    handle @homeassistant {
+        reverse_proxy ha.nerdsbythehour.com:8123 {
+            transport http {
+                tls
+                tls_insecure_skip_verify
+            }
+        }
+    }
 }
