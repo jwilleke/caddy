@@ -1,5 +1,6 @@
 {
     admin 0.0.0.0:2019
+    debug
 }
 
 *.nerdsbythehour.com localhost 127.0.0.1 {
@@ -10,50 +11,11 @@
     }
 
     # Handle requests to caddy.nerdsbythehour.com, localhost, and 127.0.0.1
-    @caddy host caddy.nerdsbythehour.com localhost 127.0.0.1
-    handle @caddy {
-        root * /usr/share/caddy
-        # Remove php_fastcgi to avoid loop; add if you have a PHP backend
-        # php_fastcgi localhost:9000  # Example: use correct PHP-FPM port
-        file_server
-        # Serve a simple response for testing
-        try_files {path} /index.html
-        respond /test "Hello from Caddy!" 200
-    }
-
-    @trueNAS host truenas.nerdsbythehour.com
-    handle @trueNAS {
-        reverse_proxy https://192.168.68.24 {
-            transport http {
-                tls
-                tls_insecure_skip_verify
-            }
-        }
-    }
+   
 
     @tesla host tesla.nerdsbythehour.com
     handle @tesla {
         reverse_proxy http://192.168.68.71:3000
-    }
-
-    @portainer host caddy-portainer.nerdsbythehour.com
-    handle @portainer {
-        reverse_proxy https://portainer:9443 {
-            transport http {
-                tls
-                tls_insecure_skip_verify
-            }
-        }
-    }
-
-    @homeassistant host ha.nerdsbythehour.com
-    handle @homeassistant {
-        reverse_proxy http://homeassistant:8123
-    }
-
-    # Catch-all for unmatched requests
-    handle {
-        respond "404 Not Found" 404
     }
 
 }
