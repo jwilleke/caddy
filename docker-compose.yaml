@@ -23,7 +23,8 @@ services:
       - ./index.html:/usr/share/caddy/index.html
     networks:
       - caddy # add other containers onto this network to use dns name
-
+    security_opt:
+      - apparmor:unconfined
 volumes:
   caddy-config:
   caddy-data:
