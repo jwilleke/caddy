@@ -18,11 +18,16 @@ ea16d1a540c6   teslamate_default   bridge    local
 
 ```
 
-From /mnt/apps/docker/caady
+## Common commands needed
+
+``` bash
+docker compose logs caddy
+
+docker compose down
 
 docker-compose up -d
 
-
+```
 
 ## Configure the Token:
 
@@ -43,6 +48,7 @@ Token Name: Enter a descriptive name, e.g., caddy-dns-nerdsbythehour.
 - Copy key as you will never see it again!
 
 test the key
+
 ``` bash
 curl "https://api.cloudflare.com/client/v4/user/tokens/verify" -H "Authorization: Bearer YourVerySecretToken"
 ```
