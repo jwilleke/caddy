@@ -9,14 +9,14 @@
         resolvers 1.1.1.1
     }
 
-    // Handle requests to caddy.nerdsbythehour.com, localhost, and 127.0.0.1
+    # Handle requests to caddy.nerdsbythehour.com, localhost, and 127.0.0.1
     @caddy host caddy.nerdsbythehour.com localhost 127.0.0.1
     handle @caddy {
         root * /usr/share/caddy
-        // Remove php_fastcgi to avoid loop; add if you have a PHP backend
-        // php_fastcgi localhost:9000  # Example: use correct PHP-FPM port
+        # Remove php_fastcgi to avoid loop; add if you have a PHP backend
+        # php_fastcgi localhost:9000  # Example: use correct PHP-FPM port
         file_server
-        // Serve a simple response for testing
+        # Serve a simple response for testing
         try_files {path} /index.html
         respond /test "Hello from Caddy!" 200
     }
@@ -51,7 +51,7 @@
         reverse_proxy http://homeassistant:8123
     }
 
-    // Catch-all for unmatched requests
+    # Catch-all for unmatched requests
     handle {
         respond "404 Not Found" 404
     }
