@@ -27,6 +27,9 @@ docker compose down
 
 docker-compose up -d
 
+docker exec -it caddy /bin/sh
+
+
 ```
 
 ## Configure the Token:
