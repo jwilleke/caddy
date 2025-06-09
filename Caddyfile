@@ -3,19 +3,9 @@
     debug
 }
 
-*.nerdsbythehour.com localhost 127.0.0.1 {
-    tls {
-        dns cloudflare {env.CF_API_TOKEN}
-        propagation_delay 2m
-        resolvers 1.1.1.1
-    }
-
-    # Handle requests to caddy.nerdsbythehour.com, localhost, and 127.0.0.1
-   
-
-    @tesla host tesla.nerdsbythehour.com
-    handle @tesla {
-        reverse_proxy http://192.168.68.71:3000
-    }
+:80 {
+    root * /usr/share/caddy
+    file_server
+}
 
 }
